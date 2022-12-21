@@ -1,0 +1,6 @@
+# ignore the parcel-cache in this gitignore
+.parcel-cache
+# ignore node modules
+node_modules
+# ignore dist
+dist
