@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
-import Counter from './Counter';
+import Main from './Main';
 
-render(<Counter />, document.getElementById('main'));
+const container = document.getElementById('main');
+const root = createRoot(container!);
+
+root.render(<Main />);
