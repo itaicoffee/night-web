@@ -4,7 +4,7 @@ import { Entry } from './Entry';
 import { EntryEditModal } from './EntryEditModal';
 import { EntryTable } from './EntryTable';
 import { InputAndButtonCard } from './InputAndButtonCard';
-import { createEntry, deleteEntry, getEntries, patchEntry } from './Network';
+import { Network } from './Network';
 import { createUuid, readUrlQueryParameter, today, updateUrlQueryParameter } from './Utils';
 
 interface CounterState {
@@ -33,14 +33,14 @@ export default class Main extends React.Component<any, CounterState> {
     if (!this.state.userUid) {
       return;
     }
-    getEntries(this.state.userUid, (entries) => {
+    Network.getEntries(this.state.userUid, (entries) => {
       this.setState({ entries: entries }, callback);
     });
   };
 
-  createEntry_ = (entry: Entry) => {
+  createEntry = (entry: Entry) => {
     this.setState({ isEntryUpdating: true }, () => {
-      createEntry(entry, () => {
+      Network.createEntry(entry, () => {
         this.loadEntries(() => {
           this.setState({ isEntryUpdating: false, entryInCreation: null });
         });
@@ -48,18 +48,18 @@ export default class Main extends React.Component<any, CounterState> {
     });
   };
 
-  patchEntry_ = (entry: Entry) => {
+  patchEntry = (entry: Entry) => {
     this.setState({ isEntryUpdating: true });
-    patchEntry(entry, () => {
+    Network.patchEntry(entry, () => {
       this.loadEntries(() => {
         this.closeModal();
       });
     });
   };
 
-  deleteEntry_ = (entryUid: string) => {
+  deleteEntry = (entryUid: string) => {
     this.setState({ isEntryUpdating: true });
-    deleteEntry(entryUid, () => {
+    Network.deleteEntry(entryUid, () => {
       this.loadEntries(() => {
         this.closeModal();
       });
@@ -132,15 +132,15 @@ export default class Main extends React.Component<any, CounterState> {
           entry={this.state.entryInEdit}
           isUpdating={this.state.isEntryUpdating}
           onCloseButtonClick={this.onModalCloseButtonClick}
-          onSubmitButtonClick={(entry: Entry) => { this.patchEntry_(entry) }}
-          onDeleteButtonClick={(entry: Entry) => { this.deleteEntry_(entry.uid) }}
+          onSubmitButtonClick={(entry: Entry) => { this.patchEntry(entry) }}
+          onDeleteButtonClick={(entry: Entry) => { this.deleteEntry(entry.uid) }}
         />
         }
         {this.state.entryInCreation && <EntryEditModal
           entry={this.state.entryInCreation}
           isUpdating={this.state.isEntryUpdating}
           onCloseButtonClick={this.onModalCloseButtonClick}
-          onSubmitButtonClick={(entry: Entry) => { this.createEntry_(entry) }}
+          onSubmitButtonClick={(entry: Entry) => { this.createEntry(entry) }}
         />}
       </div>
     );
