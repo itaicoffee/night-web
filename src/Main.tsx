@@ -99,14 +99,14 @@ export default class Main extends React.Component<any, CounterState> {
     return (
       <div className="bg-gray-50 h-full px-8 py-8">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between">
+          <div className="flex">
             <InputAndButtonCard
               title="User UID"
               placeholder={this.state.userUid || "Enter your user UID"}
               onSubmit={(value) => {
                 this.setUserUid(value);
               }} />
-            <div className="py-8">
+            <div className="py-8 px-2">
               <Button title="New" onClick={() => {
                 this.setState({
                   entryInCreation: {
@@ -119,6 +119,11 @@ export default class Main extends React.Component<any, CounterState> {
                     venueNames: [],
                   }
                 });
+              }} />
+            </div>
+            <div className="py-8 px-2">
+              <Button title="Run" onClick={() => {
+                this.state.userUid && Network.createProcess(this.state.userUid);
               }} />
             </div>
           </div>

@@ -7,7 +7,7 @@ export function InputAndButtonCard(props: {
   placeholder: string;
   onSubmit: (value: string) => void;
 }) {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState(props.placeholder);
   return (
     <div>
       <div className="flex items-center justify-between">
