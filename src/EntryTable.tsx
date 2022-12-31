@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Badge } from './Badge';
 import { Entry } from "./Entry";
-import { dayOfWeek } from './Utils';
+import { dayOfWeek, summarizeList } from './Utils';
 
 export function EntryTable(props: {
   entries: Entry[];
@@ -64,7 +64,7 @@ export function EntryTable(props: {
               </td>
               <td className="py-4 px-6">
                 {/* Join the venueNames array into a string separated by commas */}
-                {entry.venueNames.join(', ')}
+                {summarizeList(entry.venueNames, 4)}
               </td>
               <td className="py-4 px-6">
                 <a

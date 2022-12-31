@@ -51,3 +51,15 @@ export const updateUrlQueryParameter = (key: string, value: string) => {
     urlParams.set(key, value);
     window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
 };
+
+// Shorten a list of strings to a maximum length
+// >>> shortenList(["a", "b", "c", "d", "e"], 3)
+// "a, b, c, and 2 more..."
+export const summarizeList = (list: string[], maxLength: number) => {
+    if (list.length <= maxLength) {
+        return list.join(", ");
+    }
+    const shortenedList = list.slice(0, maxLength);
+    const more = list.length - maxLength;
+    return `${shortenedList.join(", ")}, and ${more} more…`;
+};

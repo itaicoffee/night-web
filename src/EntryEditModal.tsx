@@ -91,13 +91,13 @@ export function EntryEditModal(props: {
       newVenueNames = mutatingEntry.venueNames
         .concat(deck.venueNames);
     }
-    // // 1. trim whitespace
-    // // 2. remove empty strings
-    // // 3. remove duplicates
-    // newVenueNames = newVenueNames
-    //   .map((name) => name.trim())
-    //   .filter((name) => name.length > 0)
-    //   .filter((name, index, self) => self.indexOf(name) === index);
+    // 1. trim whitespace
+    // 2. remove empty strings
+    // 3. remove duplicates
+    newVenueNames = newVenueNames
+      .map((name) => name.trim())
+      .filter((name) => name.length > 0)
+      .filter((name, index, self) => self.indexOf(name) === index);
     const newMutatingEntry: Entry = {
       uid: mutatingEntry.uid,
       userUid: mutatingEntry.userUid,
@@ -162,8 +162,11 @@ export function EntryEditModal(props: {
               {/* "Venue names", placeholder: "Room 1, Room 2" */}
               <div className="col-span-6 sm:col-span-3">
                 <label htmlFor="venue-names" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Venue names</label>
-                <input
-                  type="text" name="venue-names" id="venue-names" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Room 1, Room 2" required
+                <textarea
+                  id="message"
+                  rows={4}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Venue 1, Venue 2, ..."
                   value={mutatingEntry.venueNames.join(", ")}
                   onChange={(e) => setMutatingEntry({ ...mutatingEntry, venueNames: e.target.value.split(", ") })} />
               </div>
