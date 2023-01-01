@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { LoadingButton, RedButton } from './Button';
-import { Entry } from "./Entry";
+import { Entry } from "./Interfaces";
 
 interface VenueDeck {
   name: string;

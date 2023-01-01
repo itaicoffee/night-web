@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button } from './Button';
-import { Entry } from './Entry';
+import { Entry, User } from './Interfaces';
 import { EntryEditModal } from './EntryEditModal';
 import { EntryTable } from './EntryTable';
 import { InputAndButtonCard } from './InputAndButtonCard';
@@ -12,7 +12,29 @@ interface CounterState {
   entryInEdit: Entry | null;
   isEntryUpdating: boolean;
   userUid: string | null;
+  user: User | null;
   entryInCreation: Entry | null;
+}
+
+function LoadingButton(props: {
+  title: string,
+  onClick: (then: () => void) => void
+}) {
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  return (
+    <Button
+      title={isLoading ? "Loading…" : props.title}
+      onClick={() => {
+        if (isLoading) {
+          return;
+        }
+        setIsLoading(true);
+        props.onClick(() => {
+          setIsLoading(false);
+        });
+      }}
+    />
+  );
 }
 
 export default class Main extends React.Component<any, CounterState> {
@@ -25,9 +47,22 @@ export default class Main extends React.Component<any, CounterState> {
       entryInEdit: null,
       isEntryUpdating: false,
       userUid: userUid,
+      user: null,
       entryInCreation: null,
     };
   }
+
+  loadUser = (callback?: () => void) => {
+    if (!this.state.userUid) {
+      return;
+    }
+    Network.getUser(this.state.userUid, (user) => {
+      if (!user) {
+        return;
+      }
+      this.setState({ user }, callback);
+    });
+  };
 
   loadEntries = (callback?: () => void) => {
     if (!this.state.userUid) {
@@ -88,10 +123,12 @@ export default class Main extends React.Component<any, CounterState> {
     if (!this.state.userUid) {
       return;
     }
+    this.loadUser();
     this.loadEntries();
   }
 
   componentDidMount() {
+    this.loadUser();
     this.loadEntries();
   }
 
@@ -100,20 +137,29 @@ export default class Main extends React.Component<any, CounterState> {
       <div className="bg-gray-50 h-full">
         <div className="mx-auto w-full max-w-7xl sm:px-8 lg:px-8">
           <div className="column-1">
-            <InputAndButtonCard
-              title="User UID"
-              placeholder={this.state.userUid || "Enter your user UID"}
-              onSubmit={(value) => {
-                this.setUserUid(value);
-              }} />
+            {this.state.user
+              ? <div className="px-2 py-2">
+                <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                  Logged in as {this.state.user.username}
+                </span>
+              </div>
+              : <InputAndButtonCard
+                title="User UID"
+                placeholder={this.state.userUid || "Enter your user UID"}
+                onSubmit={(value) => {
+                  this.setUserUid(value);
+                }} />
+            }
             <div className="column-1 lg:flex lg:justify-start">
               <div className="py-2 px-2">
-                <Button title="Run" onClick={() => {
-                  this.state.userUid && Network.createProcess(this.state.userUid);
+                <LoadingButton title="Run the Script" onClick={(then) => {
+                  this.state.userUid && Network.createProcess(this.state.userUid, () => {
+                    then();
+                  });
                 }} />
               </div>
               <div className="py-2 px-2">
-                <Button title="New" onClick={() => {
+                <Button title="Add" onClick={() => {
                   this.setState({
                     entryInCreation: {
                       uid: createUuid(),

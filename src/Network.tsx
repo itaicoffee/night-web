@@ -1,5 +1,5 @@
 import { BuildType, Config } from "./Config";
-import { Entry } from "./Entry";
+import { Entry, User } from "./Interfaces";
 
 const API_PREFIX = Config.getBuildType() === BuildType.DEV ? "/api" : "";
 console.log(`API_PREFIX: ${API_PREFIX}`);
@@ -85,6 +85,20 @@ export class Network {
       .catch((error) => {
         console.log("Error: ", error);
         callback && callback(false);
+      });
+  }
+
+  static getUser(userUid: string, callback: (user: User | null) => void) {
+    console.log(`getting user ${userUid}`);
+    fetch(`${API_PREFIX}/users/${userUid}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`got user ${data.user.uid}`);
+        callback(data.user);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        callback(null);
       });
   }
 }

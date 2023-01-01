@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Badge } from './Badge';
-import { Entry } from "./Entry";
+import { Entry } from "./Interfaces";
 import { dayOfWeek, summarizeList } from './Utils';
 
 export function EntryTable(props: {
