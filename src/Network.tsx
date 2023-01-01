@@ -9,13 +9,18 @@ export class Network {
     console.log(`loading entries for user ${userUid}`);
     fetch(`${API_PREFIX}/users/${userUid}/entries`)
       .then((response) => response.json())
+      // Handle exception
       .then((data) => {
         console.log(`loaded ${data["entries"].length} entries`);
         callback(data["entries"]);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        callback([]);
       });
   }
 
-  static createEntry(entry: Entry, callback: () => void) {
+  static createEntry(entry: Entry, callback: (entry: Entry | null) => void) {
     console.log(`creating entry ${entry.uid} for user ${entry.userUid}`);
     fetch(`${API_PREFIX}/entries`, {
       method: "POST",
@@ -27,7 +32,11 @@ export class Network {
       .then((response) => response.json())
       .then((data) => {
         console.log(`created entry`);
-        callback();
+        callback(data.entry);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        callback(null);
       });
   }
 
@@ -47,7 +56,7 @@ export class Network {
       });
   }
 
-  static deleteEntry(entryUid: string, callback: () => void) {
+  static deleteEntry(entryUid: string, callback: (boolean) => void) {
     console.log(`deleting entry ${entryUid}`);
     fetch(`${API_PREFIX}/entries/${entryUid}`, {
       method: "DELETE",
@@ -55,11 +64,15 @@ export class Network {
       .then((response) => response.json())
       .then((data) => {
         console.log(`deleted entry`);
-        callback();
+        callback(true);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        callback(false);
       });
   }
 
-  static createProcess(userUid: string, callback?: () => void) {
+  static createProcess(userUid: string, callback?: (boolean) => void) {
     console.log(`creating process for user ${userUid}`);
     fetch(`${API_PREFIX}/users/${userUid}/processes`, {
       method: "POST",
@@ -67,7 +80,11 @@ export class Network {
       .then((response) => response.json())
       .then((data) => {
         console.log(`created process`);
-        callback && callback();
+        callback && callback(true);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        callback && callback(false);
       });
   }
 }
