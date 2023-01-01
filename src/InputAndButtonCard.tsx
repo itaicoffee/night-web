@@ -10,9 +10,11 @@ export function InputAndButtonCard(props: {
   const [value, setValue] = React.useState(props.placeholder);
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <InputField title={props.title} placeholder={props.placeholder} onChange={setValue} />
-        <div className="px-4 py-8">
+      <div className="">
+        <div className="py-2 px-2">
+          <InputField title={props.title} placeholder={props.placeholder} onChange={setValue} />
+        </div>
+        <div className="px-2 py-2">
           <Button title="Login" onClick={() => { props.onSubmit(value); }} />
         </div>
       </div>

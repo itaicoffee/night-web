@@ -28,7 +28,7 @@ export function InputField(props: {
     "min-w-min"
   ];
   return (
-    <div className="mb-6">
+    <div className="">
       <label htmlFor="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{props.title}</label>
       <input type="text" id="default-input" className={inputClassNames.join(" ")}
         value={value}

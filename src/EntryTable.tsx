@@ -14,11 +14,12 @@ export function EntryTable(props: {
     "lg:flex",
     "lg:items-center",
     "lg:justify-between",
-    "w-full",
+    // "w-full",
+    "overflow-x-auto",
     // "p-4",
     // "text-center",
     // "bg-white",
-    "border",
+    // "border",
     // "rounded-lg",
     // "shadow-md",
     // "sm:p-8",
@@ -39,7 +40,7 @@ export function EntryTable(props: {
             <th scope="col" className="py-3 px-6">
               Seats
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="py-3 px-6 hidden lg:table-cell">
               Venues
             </th>
             <th scope="col" className="py-3 px-6">
@@ -50,19 +51,19 @@ export function EntryTable(props: {
         <tbody>
           {props.entries.map((entry, index) => (
             <tr key={entry.uid} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td className="py-4 px-6 flex justify-start">
+              <td className="py-4 px-6 columns-1 min-w-max block">
                 {entry.day}
-                <div className="px-2">
+                <div className="py-2">
                 <Badge text={dayOfWeek(entry.day)} />
                 </div>
               </td>
-              <td className="py-4 px-6">
-                {entry.fromTime} - {entry.toTime}
+              <td className="py-4 px-6 columns-1 min-w-max">
+                <div className="block">{entry.fromTime} - {entry.toTime}</div>
               </td>
               <td className="py-4 px-6">
                 {entry.numSeats}
               </td>
-              <td className="py-4 px-6">
+              <td className="py-4 px-6 hidden lg:table-cell">
                 {/* Join the venueNames array into a string separated by commas */}
                 {summarizeList(entry.venueNames, 4)}
               </td>

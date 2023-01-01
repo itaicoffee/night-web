@@ -34,13 +34,22 @@ export function Button(props: {
     "dark:focus:ring-blue-800",
   ];
   return (
-    <button
-      type="button"
-      className={classNames.join(" ")}
+    // <button
+    //   type="button"
+    //   className={classNames.join(" ")}
+    //   onClick={props.onClick}
+    // >
+    //   {props.title}
+    // </button>
+    <div>
+    <a
+      href="#"
+      className="text-white block w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:focus:ring-blue-900"
       onClick={props.onClick}
     >
       {props.title}
-    </button>
+    </a>
+  </div>
   );
 }
 

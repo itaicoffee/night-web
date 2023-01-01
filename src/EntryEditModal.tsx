@@ -9,7 +9,31 @@ interface VenueDeck {
 
 const venueDecks: VenueDeck[] = [
   { name: "Miami", venueNames: ["Stanzione 87", "NIU Wine", "Macchialina Taverna Rustica", "The River Oyster Bar", "Jaguar SunStanzione 87", "NIU Wine", "Macchialina Taverna Rustica", "Jaguar Sun", "The River Oyster Bar", "Jaguar Sun", "KYU Miami", "Krüs Kitchen", "QP Tapas", "Klaw", "Doya", "Tropezón", "Cafe Latrova"] },
-  { name: "West Village", venueNames: ["Carbone", "L'artusi"] },
+  {
+    name: "West Village", venueNames: [
+      "4 charles",
+      "carbone",
+      "i sodi",
+      "via carota",
+      "rezdora",
+      "don angie",
+      // "dame",
+    ]
+  },
+  {
+    name: "Steak Night", venueNames: [
+      "4 charles",
+      "keens",
+      "peter lugers",
+    ],
+  },
+  {
+    name: "Fun", venueNames: [
+      "laser wolf",
+      "al coro",
+      "Gem Wine",
+    ]
+  },
 ];
 
 const VenueDeckTable = (props: {

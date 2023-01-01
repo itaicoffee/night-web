@@ -40,7 +40,7 @@ export default class Main extends React.Component<any, CounterState> {
 
   createEntry = (entry: Entry) => {
     this.setState({ isEntryUpdating: true }, () => {
-      Network.createEntry(entry, () => {
+      Network.createEntry(entry, (_) => {
         this.loadEntries(() => {
           this.setState({ isEntryUpdating: false, entryInCreation: null });
         });
@@ -59,7 +59,7 @@ export default class Main extends React.Component<any, CounterState> {
 
   deleteEntry = (entryUid: string) => {
     this.setState({ isEntryUpdating: true });
-    Network.deleteEntry(entryUid, () => {
+    Network.deleteEntry(entryUid, (_) => {
       this.loadEntries(() => {
         this.closeModal();
       });
@@ -97,38 +97,40 @@ export default class Main extends React.Component<any, CounterState> {
 
   render() {
     return (
-      <div className="bg-gray-50 h-full px-8 py-8">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex">
+      <div className="bg-gray-50 h-full">
+        <div className="mx-auto w-full max-w-7xl sm:px-8 lg:px-8">
+          <div className="column-1">
             <InputAndButtonCard
               title="User UID"
               placeholder={this.state.userUid || "Enter your user UID"}
               onSubmit={(value) => {
                 this.setUserUid(value);
               }} />
-            <div className="py-8 px-2">
-              <Button title="New" onClick={() => {
-                this.setState({
-                  entryInCreation: {
-                    uid: createUuid(),
-                    userUid: this.state.userUid || "",
-                    day: today(),
-                    fromTime: "19:00",
-                    toTime: "20:00",
-                    numSeats: 2,
-                    venueNames: [],
-                  }
-                });
-              }} />
-            </div>
-            <div className="py-8 px-2">
-              <Button title="Run" onClick={() => {
-                this.state.userUid && Network.createProcess(this.state.userUid);
-              }} />
+            <div className="column-1 lg:flex lg:justify-start">
+              <div className="py-2 px-2">
+                <Button title="Run" onClick={() => {
+                  this.state.userUid && Network.createProcess(this.state.userUid);
+                }} />
+              </div>
+              <div className="py-2 px-2">
+                <Button title="New" onClick={() => {
+                  this.setState({
+                    entryInCreation: {
+                      uid: createUuid(),
+                      userUid: this.state.userUid || "",
+                      day: today(),
+                      fromTime: "19:00",
+                      toTime: "20:00",
+                      numSeats: 2,
+                      venueNames: [],
+                    }
+                  });
+                }} />
+              </div>
             </div>
           </div>
         </div>
-        <div className="mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:px-8 lg:py-4">
+        <div className="sm:px-8 lg:px-8">
           {this.state.entries && <EntryTable entries={this.state.entries} onEditButtonClick={(entry: Entry) => {
             this.setState({ entryInEdit: entry });
           }} />}
