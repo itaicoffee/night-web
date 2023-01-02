@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-export function Badge(props: { text: string; }) {
+export function Badge(props: { text: string }) {
   return (
     <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
       {props.text}
@@ -20,9 +20,11 @@ export enum BadgeColor {
   Pink = "bg-pink-100 text-pink-800 dark:bg-pink-200 dark:text-pink-900",
 }
 
-export function ColorBadge(props: { text: string, color: BadgeColor }) {
+export function ColorBadge(props: { text: string; color: BadgeColor }) {
   return (
-    <span className={`${props.color} text-xs font-semibold mr-2 px-2 py-0.5 rounded`}>
+    <span
+      className={`${props.color} text-xs font-semibold mr-2 px-2 py-0.5 rounded`}
+    >
       {props.text}
     </span>
   );

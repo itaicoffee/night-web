@@ -1,4 +1,3 @@
-
 export interface Entry {
   uid: string;
   userUid: string;

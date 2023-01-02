@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { BadgeColor, ColorBadge } from './Badge';
+import * as React from "react";
+import { BadgeColor, ColorBadge } from "./Badge";
 import { Entry } from "./Interfaces";
-import { dayOfWeek, summarizeList } from './Utils';
+import { dayOfWeek, summarizeList } from "./Utils";
 
 export function EntryTable(props: {
   entries: Entry[];
@@ -25,7 +25,7 @@ export function EntryTable(props: {
     // "sm:p-8",
     // "dark:bg-gray-800",
     // "dark:border-gray-700",
-  ]
+  ];
   return (
     <div className={classNames.join(" ")}>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -50,19 +50,25 @@ export function EntryTable(props: {
         </thead>
         <tbody>
           {props.entries.map((entry, index) => (
-            <tr key={entry.uid} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr
+              key={entry.uid}
+              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            >
               <td className="py-4 px-6 columns-1 min-w-max block">
                 {entry.day}
                 <div className="py-2">
-                <ColorBadge text={dayOfWeek(entry.day)} color={BadgeColor.Dark}/>
+                  <ColorBadge
+                    text={dayOfWeek(entry.day)}
+                    color={BadgeColor.Dark}
+                  />
                 </div>
               </td>
               <td className="py-4 px-6 columns-1 min-w-max">
-                <div className="block">{entry.fromTime} - {entry.toTime}</div>
+                <div className="block">
+                  {entry.fromTime} - {entry.toTime}
+                </div>
               </td>
-              <td className="py-4 px-6">
-                {entry.numSeats}
-              </td>
+              <td className="py-4 px-6">{entry.numSeats}</td>
               <td className="py-4 px-6 hidden lg:table-cell">
                 {/* Join the venueNames array into a string separated by commas */}
                 {summarizeList(entry.venueNames, 4)}
@@ -72,7 +78,9 @@ export function EntryTable(props: {
                   href="#"
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   onClick={() => props.onEditButtonClick(entry)}
-                >Edit</a>
+                >
+                  Edit
+                </a>
               </td>
             </tr>
           ))}

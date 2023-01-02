@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import * as React from "react";
 
 export function InputField(props: {
   title: string;
@@ -25,17 +24,26 @@ export function InputField(props: {
     "dark:text-white",
     "dark:focus:ring-blue-500",
     "dark:focus:border-blue-500",
-    "min-w-min"
+    "min-w-min",
   ];
   return (
     <div className="">
-      <label htmlFor="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{props.title}</label>
-      <input type="text" id="default-input" className={inputClassNames.join(" ")}
+      <label
+        htmlFor="default-input"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >
+        {props.title}
+      </label>
+      <input
+        type="text"
+        id="default-input"
+        className={inputClassNames.join(" ")}
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
           props.onChange(e.target.value);
-        }} />
+        }}
+      />
     </div>
   );
 }

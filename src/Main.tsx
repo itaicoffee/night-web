@@ -1,12 +1,17 @@
-import * as React from 'react';
-import { Button, ButtonGroup, Icons, LoadingButton } from './Button';
-import { Entry, User } from './Interfaces';
-import { EntryEditModal } from './EntryEditModal';
-import { EntryTable } from './EntryTable';
-import { InputAndButtonCard } from './InputAndButtonCard';
-import { Network } from './Network';
-import { createUuid, readUrlQueryParameter, today, updateUrlQueryParameter } from './Utils';
-import { BadgeColor, ColorBadge } from './Badge';
+import * as React from "react";
+import { Button, ButtonGroup, Icons, LoadingButton } from "./Button";
+import { Entry, User } from "./Interfaces";
+import { EntryEditModal } from "./EntryEditModal";
+import { EntryTable } from "./EntryTable";
+import { InputAndButtonCard } from "./InputAndButtonCard";
+import { Network } from "./Network";
+import {
+  createUuid,
+  readUrlQueryParameter,
+  today,
+  updateUrlQueryParameter,
+} from "./Utils";
+import { BadgeColor, ColorBadge } from "./Badge";
 
 interface CounterState {
   entries: Entry[] | null;
@@ -20,27 +25,26 @@ interface CounterState {
 
 // TODO: unused
 function LoadingButtonMain(props: {
-  title: string,
-  onClick: (then: () => void) => void
+  title: string;
+  onClick: (then: () => void) => void;
 }) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  return (
-    isLoading
-      ? <LoadingButton title="Loading…" />
-      : (
-        <Button
-          title={props.title}
-          onClick={() => {
-            if (isLoading) {
-              return;
-            }
-            setIsLoading(true);
-            props.onClick(() => {
-              setIsLoading(false);
-            });
-          }}
-        />
-      ));
+  return isLoading ? (
+    <LoadingButton title="Loading…" />
+  ) : (
+    <Button
+      title={props.title}
+      onClick={() => {
+        if (isLoading) {
+          return;
+        }
+        setIsLoading(true);
+        props.onClick(() => {
+          setIsLoading(false);
+        });
+      }}
+    />
+  );
 }
 
 export default class Main extends React.Component<any, CounterState> {
@@ -132,7 +136,7 @@ export default class Main extends React.Component<any, CounterState> {
     }
     this.loadUser();
     this.loadEntries();
-  }
+  };
 
   componentDidMount() {
     this.loadUser();
@@ -149,15 +153,16 @@ export default class Main extends React.Component<any, CounterState> {
         toTime: "20:00",
         numSeats: 2,
         venueNames: [],
-      }
+      },
     });
   };
 
   onClickRun = () => {
     this.setState({ isRunning: true }, () => {
-      this.state.userUid && Network.createProcess(this.state.userUid, () => {
-        this.setState({ isRunning: false });
-      });
+      this.state.userUid &&
+        Network.createProcess(this.state.userUid, () => {
+          this.setState({ isRunning: false });
+        });
     });
   };
 
@@ -166,8 +171,8 @@ export default class Main extends React.Component<any, CounterState> {
       <div className="bg-gray-50 dark:bg-gray-700 h-screen">
         <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
           <div className="column-1">
-            {this.state.user
-              ? <div className="px-2 py-2">
+            {this.state.user ? (
+              <div className="px-2 py-2">
                 {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
                   Logged in as {this.state.user.username}
                 </span> */}
@@ -176,18 +181,22 @@ export default class Main extends React.Component<any, CounterState> {
                   color={BadgeColor.Green}
                 />
               </div>
-              : <InputAndButtonCard
+            ) : (
+              <InputAndButtonCard
                 title="User UID"
                 placeholder={this.state.userUid || "Enter your user UID"}
                 onSubmit={(value) => {
                   this.setUserUid(value);
-                }} />
-            }
+                }}
+              />
+            )}
             <div className="flex full-w py-2">
               <div className="sm:flex-none w-40 flex-1  px-2">
                 <Button
                   title="Create"
-                  onClick={() => { this.onClickAdd() }}
+                  onClick={() => {
+                    this.onClickAdd();
+                  }}
                   icon={Icons.Plus}
                 />
               </div>
@@ -203,24 +212,38 @@ export default class Main extends React.Component<any, CounterState> {
           </div>
         </div>
         <div className="sm:px-8 lg:px-8 py-2">
-          {this.state.entries && <EntryTable entries={this.state.entries} onEditButtonClick={(entry: Entry) => {
-            this.setState({ entryInEdit: entry });
-          }} />}
+          {this.state.entries && (
+            <EntryTable
+              entries={this.state.entries}
+              onEditButtonClick={(entry: Entry) => {
+                this.setState({ entryInEdit: entry });
+              }}
+            />
+          )}
         </div>
-        {this.state.entryInEdit && <EntryEditModal
-          entry={this.state.entryInEdit}
-          isUpdating={this.state.isEntryUpdating}
-          onCloseButtonClick={this.onModalCloseButtonClick}
-          onSubmitButtonClick={(entry: Entry) => { this.patchEntry(entry) }}
-          onDeleteButtonClick={(entry: Entry) => { this.deleteEntry(entry.uid) }}
-        />
-        }
-        {this.state.entryInCreation && <EntryEditModal
-          entry={this.state.entryInCreation}
-          isUpdating={this.state.isEntryUpdating}
-          onCloseButtonClick={this.onModalCloseButtonClick}
-          onSubmitButtonClick={(entry: Entry) => { this.createEntry(entry) }}
-        />}
+        {this.state.entryInEdit && (
+          <EntryEditModal
+            entry={this.state.entryInEdit}
+            isUpdating={this.state.isEntryUpdating}
+            onCloseButtonClick={this.onModalCloseButtonClick}
+            onSubmitButtonClick={(entry: Entry) => {
+              this.patchEntry(entry);
+            }}
+            onDeleteButtonClick={(entry: Entry) => {
+              this.deleteEntry(entry.uid);
+            }}
+          />
+        )}
+        {this.state.entryInCreation && (
+          <EntryEditModal
+            entry={this.state.entryInCreation}
+            isUpdating={this.state.isEntryUpdating}
+            onCloseButtonClick={this.onModalCloseButtonClick}
+            onSubmitButtonClick={(entry: Entry) => {
+              this.createEntry(entry);
+            }}
+          />
+        )}
       </div>
     );
   }

@@ -19,3 +19,7 @@ install:
 .PHONY: nuke
 nuke:
 	sudo rm -rf node_modules
+
+.PHONY: format
+format:
+	npx prettier --write .
