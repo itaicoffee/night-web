@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Badge } from './Badge';
+import { BadgeColor, ColorBadge } from './Badge';
 import { Entry } from "./Interfaces";
 import { dayOfWeek, summarizeList } from './Utils';
 
@@ -54,7 +54,7 @@ export function EntryTable(props: {
               <td className="py-4 px-6 columns-1 min-w-max block">
                 {entry.day}
                 <div className="py-2">
-                <Badge text={dayOfWeek(entry.day)} />
+                <ColorBadge text={dayOfWeek(entry.day)} color={BadgeColor.Dark}/>
                 </div>
               </td>
               <td className="py-4 px-6 columns-1 min-w-max">

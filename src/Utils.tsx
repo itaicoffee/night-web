@@ -6,13 +6,14 @@ export const createUuid = () => {
     return uuid;
 };
 
-// Today's date as a "YYYY-MM-DD" string
 export const today = () => {
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    return `${year}-${month}-${day}`;
+    const monthString = month < 10 ? `0${month}` : `${month}`;
+    const dayString = day < 10 ? `0${day}` : `${day}`;
+    return `${year}-${monthString}-${dayString}`;
 };
 
 // The name of the day of the week for the given "YYYY-MM-DD" string

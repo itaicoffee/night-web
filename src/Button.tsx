@@ -4,18 +4,29 @@ import * as React from 'react';
 export function Button(props: {
   title: string;
   onClick: () => void;
+  icon?: Icons;
+  isDisabled?: boolean;
 }) {
-  // return (
-  //   <div className="inline-flex rounded-md shadow">
-  //     <a
-  //       href="#"
-  //       className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-  //       onClick={props.onClick}
-  //     >
-  //       {props.title}
-  //     </a>
-  //   </div>
-  // );
+  // py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700
+  return (
+    <div>
+    <a
+      href="#"
+      className={(props.isDisabled ? "hidden" : "") +  " select-none inline-flex items-center text-white block w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:focus:ring-blue-900"}
+      onClick={() => {!props.isDisabled && props.onClick()}}
+    >
+      {!!props.icon && icons[props.icon]}
+      <span className="flex-1 px-2">{props.title}</span>
+    </a>
+    <div className={(props.isDisabled ? "" : "hidden") + " cursor-not-allowed select-none inline-flex items-center text-gray-900 block w-full bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:focus:ring-gray-700"}>
+      {!!props.icon && icons[props.icon]}
+      <span className="flex-1 px-2">{props.title}</span>
+    </div>
+  </div>
+  );
+}
+
+export function WrapperButton(props: any) {
   const classNames = [
     "text-white",
     "bg-blue-700",
@@ -34,20 +45,13 @@ export function Button(props: {
     "dark:focus:ring-blue-800",
   ];
   return (
-    // <button
-    //   type="button"
-    //   className={classNames.join(" ")}
-    //   onClick={props.onClick}
-    // >
-    //   {props.title}
-    // </button>
     <div>
     <a
       href="#"
       className="text-white block w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:focus:ring-blue-900"
       onClick={props.onClick}
     >
-      {props.title}
+      {/* Div children here */}
     </a>
   </div>
   );
@@ -87,10 +91,8 @@ export function RedButton(props: {
 
 export function LoadingButton(props: { title: string }) {
   return (
-    <button
-      disabled
-      type="button"
-      className="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center"
+    <div
+      className="block w-full py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center"
     >
       <svg
         aria-hidden="true"
@@ -110,6 +112,16 @@ export function LoadingButton(props: { title: string }) {
         />
       </svg>
       {props.title}
-    </button>
+    </div>
   )
+}
+
+export enum Icons {
+  Play = "PLAY",
+  Plus = "PLUS",
+}
+
+const icons = {
+  [Icons.Play]: (<svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg>),
+  [Icons.Plus]: (<svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>),
 }

@@ -138,7 +138,7 @@ export function EntryEditModal(props: {
       className="absolute inset-0 h-screen flex">
       <div className="m-auto relative w-full max-w-2xl h-full md:h-auto">
         {/* Modal content */}
-        <form action="#" className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <form action="#" className="relative bg-white sm:rounded-lg shadow dark:bg-gray-700">
           {/* Modal header */}
           <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
