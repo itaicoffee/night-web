@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, ButtonGroup, Icons, LoadingButton } from "./Button";
+import { Button, Icons, LoadingButton } from "./Button";
 import { Entry, User } from "./Interfaces";
 import { EntryEditModal } from "./EntryEditModal";
 import { EntryTable } from "./EntryTable";
