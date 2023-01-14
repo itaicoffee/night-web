@@ -12,6 +12,7 @@ import {
   updateUrlQueryParameter,
 } from "./Utils";
 import { BadgeColor, ColorBadge } from "./Badge";
+import { VenueSelector } from "./VenueSelector";
 
 interface CounterState {
   entries: Entry[] | null;
@@ -189,6 +190,11 @@ export default class Main extends React.Component<any, CounterState> {
                   this.setUserUid(value);
                 }}
               />
+            )}
+            {false && (
+              <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
+                <VenueSelector />
+              </div>
             )}
             <div className="flex full-w py-2">
               <div className="sm:flex-none w-40 flex-1  px-2">
