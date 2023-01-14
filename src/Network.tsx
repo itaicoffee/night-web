@@ -101,4 +101,21 @@ export class Network {
         callback(null);
       });
   }
+
+  static getUserTestStatus(
+    userUid: string,
+    callback: (success: boolean) => void
+  ) {
+    console.log(`getting user ${userUid} test status`);
+    fetch(`${API_PREFIX}/users/${userUid}/test`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`got test status ${data.success}`);
+        callback(data.success);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        callback(false);
+      });
+  }
 }

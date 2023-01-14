@@ -10,6 +10,7 @@ import {
   readUrlQueryParameter,
   today,
   updateUrlQueryParameter,
+  YesNoUnknown,
 } from "./Utils";
 import { BadgeColor, ColorBadge } from "./Badge";
 import { VenueSelector } from "./VenueSelector";
@@ -22,6 +23,7 @@ interface CounterState {
   user: User | null;
   entryInCreation: Entry | null;
   isRunning: boolean;
+  isUserTestSuccessful: YesNoUnknown;
 }
 
 // TODO: unused
@@ -61,6 +63,7 @@ export default class Main extends React.Component<any, CounterState> {
       user: null,
       entryInCreation: null,
       isRunning: false,
+      isUserTestSuccessful: YesNoUnknown.Unknown,
     };
   }
 
@@ -82,6 +85,21 @@ export default class Main extends React.Component<any, CounterState> {
     }
     Network.getEntries(this.state.userUid, (entries) => {
       this.setState({ entries: entries }, callback);
+    });
+  };
+
+  testUser = () => {
+    if (!this.state.userUid) {
+      return;
+    }
+    Network.getUserTestStatus(this.state.userUid, (isUserTestSuccessful) => {
+      // isUserTestSuccessful is a bool
+      // convert it to YesNoUnknown enum
+      const yesNoUnknown = isUserTestSuccessful
+        ? YesNoUnknown.Yes
+        : YesNoUnknown.No;
+      console.log(`isUserTestSuccessful: ${yesNoUnknown}`);
+      this.setState({ isUserTestSuccessful: yesNoUnknown });
     });
   };
 
@@ -142,6 +160,7 @@ export default class Main extends React.Component<any, CounterState> {
   componentDidMount() {
     this.loadUser();
     this.loadEntries();
+    this.testUser();
   }
 
   onClickAdd = () => {
@@ -181,6 +200,23 @@ export default class Main extends React.Component<any, CounterState> {
                   text={"Logged in as " + this.state.user.username}
                   color={BadgeColor.Green}
                 />
+                {
+                  {
+                    [YesNoUnknown.Yes]: (
+                      <ColorBadge
+                        text={"Token confirmed"}
+                        color={BadgeColor.Green}
+                      />
+                    ),
+                    [YesNoUnknown.No]: (
+                      <ColorBadge
+                        text={"Token failed"}
+                        color={BadgeColor.Red}
+                      />
+                    ),
+                    [YesNoUnknown.Unknown]: null,
+                  }[this.state.isUserTestSuccessful]
+                }
               </div>
             ) : (
               <InputAndButtonCard

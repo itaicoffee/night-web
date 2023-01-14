@@ -1,5 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 
+export enum YesNoUnknown {
+  Yes = "Yes",
+  No = "No",
+  Unknown = "Unknown",
+}
+
 // Creates a new UUID string
 export const createUuid = () => {
   const uuid = uuidv4();
