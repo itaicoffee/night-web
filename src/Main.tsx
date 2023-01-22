@@ -229,7 +229,7 @@ export default class Main extends React.Component<any, CounterState> {
                 }}
               />
             )}
-            {true && (
+            {false && (
               <div>
               <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
                 <VenueSelector />
