@@ -9,37 +9,42 @@ interface VenueDeck {
 
 const venueDecks: VenueDeck[] = [
   {
-    name: "Miami",
-    venueNames: [
-      "Stanzione 87",
-      "NIU Wine",
-      "Macchialina Taverna Rustica",
-      "The River Oyster Bar",
-      "Jaguar SunStanzione 87",
-      "NIU Wine",
-      "Macchialina Taverna Rustica",
-      "Jaguar Sun",
-      "The River Oyster Bar",
-      "Jaguar Sun",
-      "KYU Miami",
-      "Krüs Kitchen",
-      "QP Tapas",
-      "Klaw",
-      "Doya",
-      "Tropezón",
-      "Cafe Latrova",
-    ],
-  },
-  {
     name: "West Village",
     venueNames: [
       "4 charles",
       "carbone",
       "i sodi",
       "via carota",
-      "rezdora",
+      "l'artusi",
       "don angie",
-      // "dame",
+      "dame",
+    ],
+  },
+  {
+    name: "Group Dinner in Manhattan",
+    venueNames: [
+      "4 charles",
+      "carbone",
+      "i sodi",
+      "via carota",
+      "don angie",
+      "Loring Place",
+      "The Noortwyck",
+      "fairfax",
+      "koloman",
+      "claud",
+      "le rock",
+      "manhatta financial district",
+      "joseph leonard",
+      "pastis",
+      "lure fishbar",
+      "Jeffrey's Grocery",
+    ]
+  },
+  {
+    name: "Korean",
+    venueNames: [
+      "c as in charlie",
     ],
   },
   {
