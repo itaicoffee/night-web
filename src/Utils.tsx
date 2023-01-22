@@ -22,6 +22,17 @@ export const today = () => {
   return `${year}-${monthString}-${dayString}`;
 };
 
+export const nDaysAfterToday = (n: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + n);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const monthString = month < 10 ? `0${month}` : `${month}`;
+  const dayString = day < 10 ? `0${day}` : `${day}`;
+  return `${year}-${monthString}-${dayString}`;
+}
+
 // The name of the day of the week for the given "YYYY-MM-DD" string
 export const dayOfWeek = (dateString: string) => {
   const date = new Date(dateString);

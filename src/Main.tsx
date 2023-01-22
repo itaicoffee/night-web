@@ -7,6 +7,7 @@ import { InputAndButtonCard } from "./InputAndButtonCard";
 import { Network } from "./Network";
 import {
   createUuid,
+  nDaysAfterToday,
   readUrlQueryParameter,
   today,
   updateUrlQueryParameter,
@@ -14,6 +15,7 @@ import {
 } from "./Utils";
 import { BadgeColor, ColorBadge } from "./Badge";
 import { VenueSelector } from "./VenueSelector";
+import { DaySelector, NumSeatsSelector } from "./DaySelector";
 
 interface CounterState {
   entries: Entry[] | null;
@@ -227,9 +229,26 @@ export default class Main extends React.Component<any, CounterState> {
                 }}
               />
             )}
-            {false && (
+            {true && (
+              <div>
               <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
                 <VenueSelector />
+              </div>
+              <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
+                <DaySelector defaultDate={nDaysAfterToday(1)}
+                  onDateChange={(date) => {
+                    console.log(date);
+                  }}
+                  />
+              </div>
+              <div>
+                <NumSeatsSelector
+                  defaultNumSeats={2}
+                  onNumSeatsChange={(numSeats) => {
+                    console.log(numSeats);
+                  }}
+                />
+              </div>
               </div>
             )}
             <div className="flex full-w py-2">
