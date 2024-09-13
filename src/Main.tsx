@@ -26,6 +26,7 @@ interface CounterState {
   entryInCreation: Entry | null;
   isRunning: boolean;
   isUserTestSuccessful: YesNoUnknown;
+  showOnlyFutureEntries: boolean;
 }
 
 // TODO: unused
@@ -66,6 +67,7 @@ export default class Main extends React.Component<any, CounterState> {
       entryInCreation: null,
       isRunning: false,
       isUserTestSuccessful: YesNoUnknown.Unknown,
+      showOnlyFutureEntries: true,
     };
   }
 
@@ -188,7 +190,23 @@ export default class Main extends React.Component<any, CounterState> {
     });
   };
 
+  toggleFutureEntries = () => {
+    // Log the toggle action for future entries
+    console.log(`Toggling future entries. Current state: ${!this.state.showOnlyFutureEntries}`);
+    this.setState(prevState => ({
+      showOnlyFutureEntries: !prevState.showOnlyFutureEntries
+    }));
+  };
+
   render() {
+    const filteredEntries = this.state.entries?.filter(entry => {
+      if (!this.state.showOnlyFutureEntries) return true;
+      const entryDate = new Date(entry.day);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return entryDate >= today;
+    }) || null;
+
     return (
       <div className="bg-gray-50 dark:bg-gray-700 h-screen">
         <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
@@ -206,7 +224,7 @@ export default class Main extends React.Component<any, CounterState> {
                   {
                     [YesNoUnknown.Yes]: (
                       <ColorBadge
-                        text={"Token confirmed"}
+                        text={"Resy token validated"}
                         color={BadgeColor.Green}
                       />
                     ),
@@ -269,13 +287,20 @@ export default class Main extends React.Component<any, CounterState> {
                   isDisabled={this.state.isRunning}
                 />
               </div>
+              <div className="sm:flex-none w-60 flex-1 px-2">
+                <Button
+                  title={this.state.showOnlyFutureEntries ? "Show All" : "Show Future Only"}
+                  onClick={this.toggleFutureEntries}
+                  icon={Icons.Change}
+                />
+              </div>
             </div>
           </div>
         </div>
         <div className="sm:px-8 lg:px-8 py-2">
-          {this.state.entries && (
+          {filteredEntries && (
             <EntryTable
-              entries={this.state.entries}
+              entries={filteredEntries}
               onEditButtonClick={(entry: Entry) => {
                 this.setState({ entryInEdit: entry });
               }}
