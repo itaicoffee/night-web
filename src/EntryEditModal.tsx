@@ -85,13 +85,13 @@ const VenueDeckTable = (props: {
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
         <thead className="bg-gray-50 dark:bg-gray-800">
           <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+            <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Name
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+            <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">
               Venues
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+            <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Action
             </th>
           </tr>
@@ -99,15 +99,15 @@ const VenueDeckTable = (props: {
         <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
           {props.venueDecks.map(({ deck, isAdded }, index) => (
             <tr key={deck.name}>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+              <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                 {deck.name}
               </td>
-              <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+              <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-300 hidden sm:table-cell">
                 <div className="max-w-xs truncate">
                   {deck.venueNames.join(", ")}
                 </div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <td className="px-3 py-4 whitespace-nowrap text-sm font-medium">
                 <button
                   onClick={() => props.onVenueDeckSelect(index)}
                   className={`w-20 px-3 py-1 rounded-md text-sm font-medium transition-colors duration-150 ${
@@ -170,11 +170,11 @@ export function EntryEditModal(props: {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-600 bg-opacity-50 flex items-center justify-center p-4">
       <div className="relative bg-white dark:bg-gray-800 w-full max-w-4xl mx-auto rounded-lg shadow-lg">
         {/* Modal header */}
-        <div className="flex justify-between items-center p-6 border-b dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <div className="flex justify-between items-center p-4 sm:p-6 border-b dark:border-gray-700">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
             {isCreating ? "Create New Entry" : "Edit Entry"}
           </h2>
           <button
@@ -197,7 +197,7 @@ export function EntryEditModal(props: {
                 selectedTab === 'details'
                   ? 'border-indigo-500 text-indigo-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm flex-1 text-center`}
             >
               Details
             </button>
@@ -207,7 +207,7 @@ export function EntryEditModal(props: {
                 selectedTab === 'venues'
                   ? 'border-indigo-500 text-indigo-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm flex-1 text-center`}
             >
               Venues
             </button>
@@ -215,9 +215,9 @@ export function EntryEditModal(props: {
         </div>
 
         {/* Modal body */}
-        <div className="p-6 max-h-[calc(100vh-250px)] overflow-y-auto">
+        <div className="p-4 sm:p-6 max-h-[calc(100vh-250px)] overflow-y-auto">
           {selectedTab === 'details' && (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               {/* Day input */}
               <div>
                 <label htmlFor="day" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -233,34 +233,34 @@ export function EntryEditModal(props: {
                 />
               </div>
 
-              {/* From Time input */}
-              <div>
-                <label htmlFor="from-time" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  From Time
-                </label>
-                <input
-                  type="time"
-                  name="from-time"
-                  id="from-time"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm px-3 py-2"
-                  value={mutatingEntry.fromTime}
-                  onChange={(e) => setMutatingEntry({ ...mutatingEntry, fromTime: e.target.value })}
-                />
-              </div>
-
-              {/* To Time input */}
-              <div>
-                <label htmlFor="to-time" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  To Time
-                </label>
-                <input
-                  type="time"
-                  name="to-time"
-                  id="to-time"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm px-3 py-2"
-                  value={mutatingEntry.toTime}
-                  onChange={(e) => setMutatingEntry({ ...mutatingEntry, toTime: e.target.value })}
-                />
+              {/* From Time and To Time inputs */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="from-time" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    From Time
+                  </label>
+                  <input
+                    type="time"
+                    name="from-time"
+                    id="from-time"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm px-3 py-2"
+                    value={mutatingEntry.fromTime}
+                    onChange={(e) => setMutatingEntry({ ...mutatingEntry, fromTime: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="to-time" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    To Time
+                  </label>
+                  <input
+                    type="time"
+                    name="to-time"
+                    id="to-time"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm px-3 py-2"
+                    value={mutatingEntry.toTime}
+                    onChange={(e) => setMutatingEntry({ ...mutatingEntry, toTime: e.target.value })}
+                  />
+                </div>
               </div>
 
               {/* Number of seats input */}
@@ -308,14 +308,14 @@ export function EntryEditModal(props: {
         </div>
 
         {/* Modal footer */}
-        <div className="flex justify-end items-center p-6 border-t dark:border-gray-700 space-x-3">
+        <div className="flex flex-col sm:flex-row justify-end items-stretch p-4 sm:p-6 border-t dark:border-gray-700 space-y-3 sm:space-y-0 sm:space-x-3">
           {props.isUpdating ? (
-            <LoadingButton title="Updating" />
+            <LoadingButton title="Updating" className="w-full sm:w-auto" />
           ) : (
             <button
               type="button"
               onClick={() => props.onSubmitButtonClick(mutatingEntry)}
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full sm:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               disabled={props.isUpdating}
             >
               Save
@@ -324,7 +324,8 @@ export function EntryEditModal(props: {
           {!props.isUpdating && props.onDeleteButtonClick && (
             <RedButton
               title="Delete"
-              onClick={() => props.onDeleteButtonClick && props.onDeleteButtonClick(mutatingEntry)}
+              onClick={() => props.onDeleteButtonClick(mutatingEntry)}
+              className="w-full sm:w-auto"
             />
           )}
         </div>
