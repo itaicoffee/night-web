@@ -208,105 +208,85 @@ export default class Main extends React.Component<any, CounterState> {
     }) || null;
 
     return (
-      <div className="bg-gray-50 dark:bg-gray-700 h-screen">
-        <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
-          <div className="column-1">
-            {this.state.user ? (
-              <div className="px-2 py-2">
-                {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
-                  Logged in as {this.state.user.username}
-                </span> */}
-                <ColorBadge
-                  text={"Logged in as " + this.state.user.username}
-                  color={BadgeColor.Green}
-                />
-                {
-                  {
-                    [YesNoUnknown.Yes]: (
-                      <ColorBadge
-                        text={"Resy token validated"}
-                        color={BadgeColor.Green}
-                      />
-                    ),
-                    [YesNoUnknown.No]: (
-                      <ColorBadge
-                        text={"Token failed"}
-                        color={BadgeColor.Red}
-                      />
-                    ),
-                    [YesNoUnknown.Unknown]: null,
-                  }[this.state.isUserTestSuccessful]
-                }
-              </div>
-            ) : (
-              <InputAndButtonCard
-                title="User UID"
-                placeholder={this.state.userUid || "Enter your user UID"}
-                onSubmit={(value) => {
-                  this.setUserUid(value);
-                }}
-              />
-            )}
-            {false && (
-              <div>
-              <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
-                <VenueSelector />
-              </div>
-              <div className="mx-auto w-full max-w-7xl sm:px-8 xl:px-0">
-                <DaySelector defaultDate={nDaysAfterToday(1)}
-                  onDateChange={(date) => {
-                    console.log(date);
-                  }}
+      <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+                Reservation Manager
+              </h3>
+              {this.state.user ? (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <ColorBadge
+                    text={"Logged in as " + this.state.user.username}
+                    color={BadgeColor.Green}
                   />
-              </div>
-              <div>
-                <NumSeatsSelector
-                  defaultNumSeats={2}
-                  onNumSeatsChange={(numSeats) => {
-                    console.log(numSeats);
+                  {
+                    {
+                      [YesNoUnknown.Yes]: (
+                        <ColorBadge
+                          text={"Resy token validated"}
+                          color={BadgeColor.Green}
+                        />
+                      ),
+                      [YesNoUnknown.No]: (
+                        <ColorBadge
+                          text={"Token failed"}
+                          color={BadgeColor.Red}
+                        />
+                      ),
+                      [YesNoUnknown.Unknown]: null,
+                    }[this.state.isUserTestSuccessful]
+                  }
+                </div>
+              ) : (
+                <InputAndButtonCard
+                  title="User UID"
+                  placeholder={this.state.userUid || "Enter your user UID"}
+                  onSubmit={(value) => {
+                    this.setUserUid(value);
                   }}
                 />
-              </div>
-              </div>
-            )}
-            <div className="flex full-w py-2">
-              <div className="sm:flex-none w-40 flex-1  px-2">
+              )}
+            </div>
+            <div className="border-t border-gray-200 dark:border-gray-700 px-4 py-5 sm:p-6">
+              <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Actions</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <Button
-                  title="Create"
-                  onClick={() => {
-                    this.onClickAdd();
-                  }}
+                  title="Create Entry"
+                  onClick={this.onClickAdd}
                   icon={Icons.Plus}
+                  className="w-full"
                 />
-              </div>
-              <div className="sm:flex-none w-40 flex-1 px-2">
                 <Button
-                  title={this.state.isRunning ? "Running…" : "Run"}
+                  title={this.state.isRunning ? "Running…" : "Run Process"}
                   onClick={this.onClickRun}
                   icon={Icons.Play}
                   isDisabled={this.state.isRunning}
+                  className="w-full"
                 />
-              </div>
-              <div className="sm:flex-none w-60 flex-1 px-2">
                 <Button
-                  title={this.state.showOnlyFutureEntries ? "Show All" : "Show Future Only"}
+                  title={this.state.showOnlyFutureEntries ? "Show All Entries" : "Show Future Only"}
                   onClick={this.toggleFutureEntries}
                   icon={Icons.Change}
+                  className="w-full"
                 />
               </div>
             </div>
           </div>
+          
+          <div className="mt-8">
+            {filteredEntries && (
+              <EntryTable
+                entries={filteredEntries}
+                onEditButtonClick={(entry: Entry) => {
+                  this.setState({ entryInEdit: entry });
+                }}
+              />
+            )}
+          </div>
         </div>
-        <div className="sm:px-8 lg:px-8 py-2">
-          {filteredEntries && (
-            <EntryTable
-              entries={filteredEntries}
-              onEditButtonClick={(entry: Entry) => {
-                this.setState({ entryInEdit: entry });
-              }}
-            />
-          )}
-        </div>
+        
         {this.state.entryInEdit && (
           <EntryEditModal
             entry={this.state.entryInEdit}
