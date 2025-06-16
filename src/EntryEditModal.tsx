@@ -7,74 +7,9 @@ interface VenueDeck {
   venueNames: string[];
 }
 
-const venueDecks: VenueDeck[] = [
-  {
-    name: "West Village",
-    venueNames: [
-      "4 charles",
-      "carbone",
-      "port sa'id",
-      "i sodi",
-      "via carota",
-      "l'artusi",
-      "don angie",
-      "libertine",
-    ],
-  },
-  {
-    name: "Group Dinner in Manhattan",
-    venueNames: [
-      // 4 charles, carbone, i sodi, via carota, l'artusi, don angie, manhatta financial district, The Noortwyck, Loring Place, goa new york,  dame, fairfax, koloman, foul witch, claud, le rock, joseph leonard, pastis, peter lugers, lure fishbar, Jeffrey's Grocery, Torrisi Bar & Restaurant, misi williamsburg, Txikito, c as in charlie, Kafana, keens, keens, laser wolf, al coro, Gem Wine
-      "4 charles",
-      "carbone",
-      "i sodi",
-      "via carota",
-      "don angie",
-      "Loring Place",
-      "The Noortwyck",
-      "fairfax",
-      "koloman",
-      "claud",
-      "le rock",
-      "manhatta financial district",
-      "joseph leonard",
-      "pastis",
-      "lure fishbar",
-      "Jeffrey's Grocery",
-      "Torrisi Bar & Restaurant",
-      "misi williamsburg",
-      "Txikito",
-      "c as in charlie",
-      "keens",
-    ]
-  },
-  {
-    name: "Brunch",
-    venueNames: [
-      "sunday in brooklyn",
-      "Baby Blues Luncheonette",
-      "Clinton St. Baking Co",
-      "Golden Diner chinatown",
-      "Russ & Daughters Cafe",
-      "k'far",
-      "reunion cafe",
-    ],
-  },
-  {
-    name: "Korean",
-    venueNames: [
-      "c as in charlie",
-    ],
-  },
-  {
-    name: "Steak Night",
-    venueNames: ["4 charles", "keens", "peter lugers"],
-  },
-  {
-    name: "Fun",
-    venueNames: ["laser wolf", "al coro", "Gem Wine"],
-  },
-];
+import restaurantData from './data/restaurants.json';
+
+const venueDecks: VenueDeck[] = restaurantData.venueDecks;
 
 const VenueDeckTable = (props: {
   venueDecks: { deck: VenueDeck; isAdded: boolean }[];
