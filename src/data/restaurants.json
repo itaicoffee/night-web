@@ -72,6 +72,104 @@
         "al coro",
         "Gem Wine"
       ]
+    },
+    {
+      "name": "West Village Date",
+      "venueNames": [
+        "Semma",
+        "Binx",
+        "L'Artusi",
+        "Buvette",
+        "Dante",
+        "Dame",
+        "Le Chêne",
+        "Shmoné"
+      ]
+    },
+    {
+      "name": "West Village Group",
+      "venueNames": [
+        "Don Angie",
+        "Via Carota",
+        "Sappe",
+        "Saint Theo's",
+        "Lord's",
+        "Loring Place",
+        "Da Toscano",
+        "Carbone"
+      ]
+    },
+    {
+      "name": "East Village Date",
+      "venueNames": [
+        "Claud",
+        "Bungalow",
+        "Binx",
+        "Ruffian"
+      ]
+    },
+    {
+      "name": "East Village Group",
+      "venueNames": [
+        "Nowon",
+        "Hanoi House",
+        "The Smith",
+        "11 Tigers"
+      ]
+    },
+    {
+      "name": "Lower East Side Date",
+      "venueNames": [
+        "Ernesto's",
+        "Le Dive",
+        "Dirt Candy",
+        "Bar Belly"
+      ]
+    },
+    {
+      "name": "Lower East Side Group",
+      "venueNames": [
+        "Kiki's",
+        "Wayla",
+        "Double Chicken Please",
+        "Congee Village"
+      ]
+    },
+    {
+      "name": "Williamsburg Date",
+      "venueNames": [
+        "The Four Horsemen",
+        "Bonnie's",
+        "Lilia",
+        "Bar Blondeau"
+      ]
+    },
+    {
+      "name": "Williamsburg Group",
+      "venueNames": [
+        "Laser Wolf",
+        "Le Crocodile",
+        "Llama Inn",
+        "Bernie's"
+      ]
+    },
+    {
+      "name": "Greenpoint Date",
+      "venueNames": [
+        "Oxomoco",
+        "Ilis",
+        "Le Fanfare",
+        "El Pingüino"
+      ]
+    },
+    {
+      "name": "Greenpoint Group",
+      "venueNames": [
+        "Rule of Thirds",
+        "Paulie Gee's",
+        "Di An Di",
+        "Naked Dog"
+      ]
     }
   ]
 }
